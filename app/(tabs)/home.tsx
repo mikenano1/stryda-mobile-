@@ -1,5 +1,6 @@
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 
 export default function Home() {
   return (
@@ -7,9 +8,9 @@ export default function Home() {
       <Text style={styles.title}>Kia ora — how do you want to start?</Text>
 
       <View style={styles.row}>
-        <Primary icon="mic" label="Talk" onPress={() => { /* TODO: voice */ }} />
-        <Primary icon="chatbubble-ellipses" label="Type" onPress={() => { /* TODO: text */ }} />
-        <Primary icon="scan" label="Scan" onPress={() => { /* TODO: scan */ }} />
+        <Primary icon="mic" label="Talk" onPress={() => router.push('/voice')} />
+        <Primary icon="chatbubble-ellipses" label="Type" onPress={() => router.push('/chat')} />
+        <Primary icon="scan" label="Scan" onPress={() => router.push('/scan')} />
       </View>
 
       <Text style={styles.section}>Recents</Text>
@@ -36,4 +37,3 @@ const styles = StyleSheet.create({
   section:{ marginTop:24, fontSize:16, fontWeight:'600' },
   empty:{ marginTop:8, opacity:0.6 },
 });
-
