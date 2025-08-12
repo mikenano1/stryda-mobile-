@@ -1,18 +1,17 @@
 import React from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
-import { router } from 'expo-router';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { Link } from 'expo-router';
 
 export default function Home() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Touch test</Text>
 
-      <Pressable
-        onPress={() => router.push('/chat')}
-        style={({ pressed }) => [styles.btn, pressed && { opacity: 0.7 }]}
-      >
-        <Text style={styles.btnText}>Go to Chat</Text>
-      </Pressable>
+      <Link href="/chat" asChild>
+        <Pressable style={styles.btn}>
+          <Text style={styles.btnText}>Go to Chat</Text>
+        </Pressable>
+      </Link>
     </View>
   );
 }
