@@ -1,7 +1,7 @@
 const Colors = {
   light: {
-    primary: '#0E7C86',
-    primaryDark: '#0A5E65',
+    primary: '#111827',       // neutral accent that blends with most logos
+    primaryDark: '#000000',
     bg: '#FFFFFF',
     text: '#111827',
     muted: '#6B7280',
@@ -10,12 +10,12 @@ const Colors = {
     warning: '#F59E0B',
     danger:  '#DC2626',
     tabBg: '#FFFFFF',
-    tabActive: '#0E7C86',
+    tabActive: '#111827',
     tabInactive: '#6B7280',
   },
   dark: {
-    primary: '#53AEB6',
-    primaryDark: '#3B8E95',
+    primary: '#F3F4F6',
+    primaryDark: '#FFFFFF',
     bg: '#0B0F14',
     text: '#F3F4F6',
     muted: '#9CA3AF',
@@ -24,7 +24,7 @@ const Colors = {
     warning: '#FBBF24',
     danger:  '#EF4444',
     tabBg: '#0B0F14',
-    tabActive: '#53AEB6',
+    tabActive: '#F3F4F6',
     tabInactive: '#9CA3AF',
   }
 };
