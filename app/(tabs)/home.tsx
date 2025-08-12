@@ -79,7 +79,7 @@ export default function Home() {
         </Pressable>
 
         <Pressable
-          onPress={() => router.push('/voicecall')} // Voice (continuous conversation)
+          onPress={() => router.push('/appvoice')} // <-- Voice (continuous convo) route you created
           style={({ pressed }) => [
             styles.actionBtn,
             { backgroundColor: C.primary, borderColor: C.primary },
