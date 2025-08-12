@@ -1,29 +1,34 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { Tabs } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
+import { useColorScheme } from 'react-native';
+import Colors from '../../constants/Colors';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  if (!loaded) {
-    // Async font loading only occurs in development.
-    return null;
-  }
+export default function TabsLayout() {
+  const scheme = useColorScheme() ?? 'light';
+  const C = Colors[scheme];
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <Tabs
+      screenOptions={({ route }) => ({
+        headerShown: true,
+        headerStyle: { backgroundColor: C.bg },
+        headerTitleStyle: { color: C.text, fontWeight: '600' },
+        tabBarStyle: { backgroundColor: C.tabBg, borderTopColor: C.border },
+        tabBarActiveTintColor: C.tabActive,
+        tabBarInactiveTintColor: C.tabInactive,
+        tabBarIcon: ({ color, size, focused }) => {
+          const map: Record<string, any> = {
+            home: focused ? 'home' : 'home-outline',
+            work: focused ? 'briefcase' : 'briefcase-outline',
+            library: focused ? 'book' : 'book-outline',
+          };
+          return <Ionicons name={map[route.name]} size={size} color={color} />;
+        },
+      })}
+    >
+      <Tabs.Screen name="home" options={{ title: 'Home' }} />
+      <Tabs.Screen name="work" options={{ title: 'Work' }} />
+      <Tabs.Screen name="library" options={{ title: 'Library' }} />
+    </Tabs>
   );
 }
