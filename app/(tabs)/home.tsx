@@ -69,4 +69,57 @@ export default function Home() {
           ]}
           accessibilityLabel="Talk"
         >
-          <Ionicons name="mic" size={16}
+          <Ionicons name="mic" size={16} color={scheme === 'dark' ? '#111827' : '#fff'} />
+        </Pressable>
+
+        {/* Voice (continuous conversation) */}
+        <Pressable
+          onPress={() => router.push('/appvoice')}
+          hitSlop={12}
+          style={({ pressed }) => [
+            styles.iconBtn,
+            { right: 8, backgroundColor: C.primary },
+            pressed && { opacity: 0.85 },
+          ]}
+          accessibilityLabel="Voice"
+        >
+          <Ionicons name="radio" size={16} color={scheme === 'dark' ? '#111827' : '#fff'} />
+        </Pressable>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, padding: 20, alignItems: 'center' },
+  brandRow: { width: '100%', marginBottom: 12 },
+  brand: { fontSize: 20, fontWeight: '700', letterSpacing: 0.5 },
+
+  // Big logo like your mock
+  logo: { width: 280, height: 280, marginTop: 10, marginBottom: 8 },
+
+  greet: { fontSize: 22, fontWeight: '700', marginTop: 6 },
+  sub: { fontSize: 14, marginTop: 4, marginBottom: 16 },
+
+  inputWrap: {
+    width: '100%',
+    borderWidth: 1,
+    borderRadius: 14,
+    paddingLeft: 14,
+    paddingVertical: 10,
+    paddingRight: 100,   // space for two icons
+    position: 'relative',
+    zIndex: 10,          // keep on top
+  },
+  input: { fontSize: 16, minHeight: 24 },
+
+  iconBtn: {
+    position: 'absolute',
+    top: 8,
+    width: 36,
+    height: 36,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
