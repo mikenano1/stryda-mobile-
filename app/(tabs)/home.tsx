@@ -27,7 +27,7 @@ export default function Home() {
         <Text style={[styles.brand, { color: C.text }]}>STRYDA.ai</Text>
       </View>
 
-      {/* Centered logo */}
+      {/* Bigger centered logo */}
       <Image
         source={require('../../assets/images/stryda-logo.png')}
         style={styles.logo}
@@ -38,12 +38,12 @@ export default function Home() {
       <Text style={[styles.greet, { color: C.text }]}>Howz it {name}</Text>
       <Text style={[styles.sub, { color: C.muted }]}>What are we doing today?</Text>
 
-      {/* Chat box with mic (Talk = single utterance) */}
+      {/* Chat box with two tiny icon tabs (Talk + Voice) */}
       <View style={[styles.inputWrap, { borderColor: C.border, backgroundColor: scheme === 'dark' ? '#111418' : '#F8FAFC' }]}>
         <TextInput
           value={q}
           onChangeText={setQ}
-          placeholder="Ask anything..."
+          placeholder="Ask anything…"
           placeholderTextColor={C.muted}
           style={[styles.input, { color: C.text }]}
           onSubmitEditing={goChat}
@@ -51,43 +51,31 @@ export default function Home() {
           autoCapitalize="sentences"
           autoCorrect
         />
+
+        {/* Tiny Talk (push-to-talk) icon */}
         <Pressable
-          onPress={() => router.push('/voice')} // Talk (push-to-talk) screen
+          onPress={() => router.push('/voice')}
           style={({ pressed }) => [
-            styles.mic,
-            { backgroundColor: C.primary },
+            styles.iconBtn,
+            { right: 48, backgroundColor: C.primary },
             pressed && { opacity: 0.85 },
           ]}
           accessibilityLabel="Talk"
         >
-          <Ionicons name="mic" size={18} color="#fff" />
-        </Pressable>
-      </View>
-
-      {/* Mode chooser: Talk vs Voice (full conversation) */}
-      <View style={styles.actionRow}>
-        <Pressable
-          onPress={() => router.push('/voice')} // Talk (single question)
-          style={({ pressed }) => [
-            styles.actionBtn,
-            { borderColor: C.border, backgroundColor: C.bg },
-            pressed && { opacity: 0.8 },
-          ]}
-        >
-          <Ionicons name="mic" size={16} color={C.text} />
-          <Text style={[styles.actionLabel, { color: C.text }]}>Talk</Text>
+          <Ionicons name="mic" size={16} color={scheme === 'dark' ? '#111827' : '#fff'} />
         </Pressable>
 
+        {/* Tiny Voice (continuous conversation) icon */}
         <Pressable
-          onPress={() => router.push('/appvoice')} // <-- Voice (continuous convo) route you created
+          onPress={() => router.push('/appvoice')}
           style={({ pressed }) => [
-            styles.actionBtn,
-            { backgroundColor: C.primary, borderColor: C.primary },
-            pressed && { opacity: 0.9 },
+            styles.iconBtn,
+            { right: 8, backgroundColor: C.primary },
+            pressed && { opacity: 0.85 },
           ]}
+          accessibilityLabel="Voice"
         >
-          <Ionicons name="radio" size={16} color="#fff" />
-          <Text style={[styles.actionLabel, { color: '#fff' }]}>Voice</Text>
+          <Ionicons name="radio" size={16} color={scheme === 'dark' ? '#111827' : '#fff'} />
         </Pressable>
       </View>
     </View>
@@ -98,7 +86,10 @@ const styles = StyleSheet.create({
   container: { flex: 1, padding: 20, alignItems: 'center' },
   brandRow: { width: '100%', marginBottom: 12 },
   brand: { fontSize: 20, fontWeight: '700', letterSpacing: 0.5 },
-  logo: { width: 180, height: 180, marginTop: 24, marginBottom: 12 },
+
+  // Bigger logo like your screenshot
+  logo: { width: 280, height: 280, marginTop: 10, marginBottom: 8 },
+
   greet: { fontSize: 22, fontWeight: '700', marginTop: 6 },
   sub: { fontSize: 14, marginTop: 4, marginBottom: 16 },
 
@@ -106,33 +97,21 @@ const styles = StyleSheet.create({
     width: '100%',
     borderWidth: 1,
     borderRadius: 14,
-    paddingRight: 46,
     paddingLeft: 14,
     paddingVertical: 10,
+    // space for two tiny buttons on the right
+    paddingRight: 100,
     position: 'relative',
   },
-  input: { fontSize: 16, height: 24 },
-  mic: {
-    width: 34,
-    height: 34,
+  input: { fontSize: 16, minHeight: 24 },
+
+  iconBtn: {
+    position: 'absolute',
+    top: 8,
+    width: 36,
+    height: 36,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    position: 'absolute',
-    right: 6,
-    top: 6,
   },
-
-  actionRow: { flexDirection: 'row', gap: 12, width: '100%', marginTop: 14 },
-  actionBtn: {
-    flex: 1,
-    borderWidth: 1,
-    borderRadius: 12,
-    paddingVertical: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    gap: 8,
-  },
-  actionLabel: { fontSize: 15, fontWeight: '600' },
 });
