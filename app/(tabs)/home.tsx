@@ -27,11 +27,12 @@ export default function Home() {
         <Text style={[styles.brand, { color: C.text }]}>STRYDA.ai</Text>
       </View>
 
-      {/* Bigger centered logo */}
+      {/* Bigger centered logo (doesn't intercept touches) */}
       <Image
         source={require('../../assets/images/stryda-logo.png')}
         style={styles.logo}
         resizeMode="contain"
+        pointerEvents="none"
       />
 
       {/* Greeting */}
@@ -39,7 +40,12 @@ export default function Home() {
       <Text style={[styles.sub, { color: C.muted }]}>What are we doing today?</Text>
 
       {/* Chat box with two tiny icon tabs (Talk + Voice) */}
-      <View style={[styles.inputWrap, { borderColor: C.border, backgroundColor: scheme === 'dark' ? '#111418' : '#F8FAFC' }]}>
+      <View
+        style={[
+          styles.inputWrap,
+          { borderColor: C.border, backgroundColor: scheme === 'dark' ? '#111418' : '#F8FAFC' },
+        ]}
+      >
         <TextInput
           value={q}
           onChangeText={setQ}
@@ -55,6 +61,7 @@ export default function Home() {
         {/* Tiny Talk (push-to-talk) icon */}
         <Pressable
           onPress={() => router.push('/voice')}
+          hitSlop={12}
           style={({ pressed }) => [
             styles.iconBtn,
             { right: 48, backgroundColor: C.primary },
@@ -68,6 +75,7 @@ export default function Home() {
         {/* Tiny Voice (continuous conversation) icon */}
         <Pressable
           onPress={() => router.push('/appvoice')}
+          hitSlop={12}
           style={({ pressed }) => [
             styles.iconBtn,
             { right: 8, backgroundColor: C.primary },
@@ -102,6 +110,7 @@ const styles = StyleSheet.create({
     // space for two tiny buttons on the right
     paddingRight: 100,
     position: 'relative',
+    zIndex: 10,               // <-- ensure on top of any overlapping views
   },
   input: { fontSize: 16, minHeight: 24 },
 
@@ -115,3 +124,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
