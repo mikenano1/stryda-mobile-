@@ -38,7 +38,7 @@ export default function Home() {
       <Text style={[styles.greet, { color: C.text }]}>Howz it {name}</Text>
       <Text style={[styles.sub, { color: C.muted }]}>What are we doing today?</Text>
 
-      {/* Chat box with mic */}
+      {/* Chat box with mic (Talk = single utterance) */}
       <View style={[styles.inputWrap, { borderColor: C.border, backgroundColor: scheme === 'dark' ? '#111418' : '#F8FAFC' }]}>
         <TextInput
           value={q}
@@ -52,7 +52,7 @@ export default function Home() {
           autoCorrect
         />
         <Pressable
-          onPress={() => router.push('/voice')}
+          onPress={() => router.push('/voice')} // Talk (push-to-talk) screen
           style={({ pressed }) => [
             styles.mic,
             { backgroundColor: C.primary },
@@ -61,6 +61,33 @@ export default function Home() {
           accessibilityLabel="Talk"
         >
           <Ionicons name="mic" size={18} color="#fff" />
+        </Pressable>
+      </View>
+
+      {/* Mode chooser: Talk vs Voice (full conversation) */}
+      <View style={styles.actionRow}>
+        <Pressable
+          onPress={() => router.push('/voice')} // Talk (single question)
+          style={({ pressed }) => [
+            styles.actionBtn,
+            { borderColor: C.border, backgroundColor: C.bg },
+            pressed && { opacity: 0.8 },
+          ]}
+        >
+          <Ionicons name="mic" size={16} color={C.text} />
+          <Text style={[styles.actionLabel, { color: C.text }]}>Talk</Text>
+        </Pressable>
+
+        <Pressable
+          onPress={() => router.push('/voicecall')} // Voice (continuous conversation)
+          style={({ pressed }) => [
+            styles.actionBtn,
+            { backgroundColor: C.primary, borderColor: C.primary },
+            pressed && { opacity: 0.9 },
+          ]}
+        >
+          <Ionicons name="radio" size={16} color="#fff" />
+          <Text style={[styles.actionLabel, { color: '#fff' }]}>Voice</Text>
         </Pressable>
       </View>
     </View>
@@ -74,6 +101,7 @@ const styles = StyleSheet.create({
   logo: { width: 180, height: 180, marginTop: 24, marginBottom: 12 },
   greet: { fontSize: 22, fontWeight: '700', marginTop: 6 },
   sub: { fontSize: 14, marginTop: 4, marginBottom: 16 },
+
   inputWrap: {
     width: '100%',
     borderWidth: 1,
@@ -94,4 +122,17 @@ const styles = StyleSheet.create({
     right: 6,
     top: 6,
   },
+
+  actionRow: { flexDirection: 'row', gap: 12, width: '100%', marginTop: 14 },
+  actionBtn: {
+    flex: 1,
+    borderWidth: 1,
+    borderRadius: 12,
+    paddingVertical: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    gap: 8,
+  },
+  actionLabel: { fontSize: 15, fontWeight: '600' },
 });
