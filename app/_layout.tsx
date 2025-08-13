@@ -1,10 +1,8 @@
 import { Stack } from 'expo-router';
-import { useColorScheme } from 'react-native';
 import Colors from '../constants/Colors';
 
 export default function RootLayout() {
-  const scheme = useColorScheme() ?? 'light';
-  const C = Colors[scheme];
+  const C = Colors.dark; // force dark theme
 
   return (
     <Stack
