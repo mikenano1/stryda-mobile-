@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Image, Pressable, useColorScheme } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Image, Pressable } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import Colors from '../../constants/Colors';
 
 export default function Home() {
-  const scheme = useColorScheme() ?? 'light';
-  const C = Colors[scheme];
+  const C = Colors.dark;  // force dark
   const [q, setQ] = useState('');
   const name = 'Mike'; // TODO: load from profile later
 
@@ -20,14 +19,14 @@ export default function Home() {
 
   return (
     <View style={[styles.container, { backgroundColor: C.bg }]}>
-      <StatusBar style={scheme === 'dark' ? 'light' : 'dark'} />
+      <StatusBar style="light" />
 
       {/* Brand */}
       <View style={styles.brandRow}>
         <Text style={[styles.brand, { color: C.text }]}>STRYDA.ai</Text>
       </View>
 
-      {/* Big centered logo (ignore touches) */}
+      {/* Big centered logo */}
       <Image
         source={require('../../assets/images/stryda-logo.png')}
         style={styles.logo}
@@ -39,11 +38,11 @@ export default function Home() {
       <Text style={[styles.greet, { color: C.text }]}>Howz it {name}</Text>
       <Text style={[styles.sub, { color: C.muted }]}>What are we doing today?</Text>
 
-      {/* Chat box with tiny Talk + Voice icons inside (like ChatGPT) */}
+      {/* Chat box with tiny icon tabs (Talk + Voice) */}
       <View
         style={[
           styles.inputWrap,
-          { borderColor: C.border, backgroundColor: scheme === 'dark' ? '#111418' : '#F8FAFC' },
+          { borderColor: C.border, backgroundColor: '#111418' },
         ]}
       >
         <TextInput
@@ -58,32 +57,32 @@ export default function Home() {
           autoCorrect
         />
 
-        {/* Talk (push-to-talk) */}
+        {/* Talk (push-to-talk) — outline */}
         <Pressable
           onPress={() => router.push('/voice')}
           hitSlop={12}
           style={({ pressed }) => [
             styles.iconBtn,
-            { right: 48, backgroundColor: C.primary },
+            { right: 48, borderColor: C.border },
             pressed && { opacity: 0.85 },
           ]}
           accessibilityLabel="Talk"
         >
-          <Ionicons name="mic" size={16} color={scheme === 'dark' ? '#111827' : '#fff'} />
+          <Ionicons name="mic" size={18} color={C.text} />
         </Pressable>
 
-        {/* Voice (continuous conversation) */}
+        {/* Voice (continuous) — outline */}
         <Pressable
           onPress={() => router.push('/appvoice')}
           hitSlop={12}
           style={({ pressed }) => [
             styles.iconBtn,
-            { right: 8, backgroundColor: C.primary },
+            { right: 8, borderColor: C.border },
             pressed && { opacity: 0.85 },
           ]}
           accessibilityLabel="Voice"
         >
-          <Ionicons name="radio" size={16} color={scheme === 'dark' ? '#111827' : '#fff'} />
+          <Ionicons name="radio" size={18} color={C.text} />
         </Pressable>
       </View>
     </View>
@@ -95,7 +94,6 @@ const styles = StyleSheet.create({
   brandRow: { width: '100%', marginBottom: 12 },
   brand: { fontSize: 20, fontWeight: '700', letterSpacing: 0.5 },
 
-  // Big logo like your mock
   logo: { width: 280, height: 280, marginTop: 10, marginBottom: 8 },
 
   greet: { fontSize: 22, fontWeight: '700', marginTop: 6 },
@@ -107,19 +105,21 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     paddingLeft: 14,
     paddingVertical: 10,
-    paddingRight: 100,   // space for two icons
+    paddingRight: 100, // space for two icons
     position: 'relative',
-    zIndex: 10,          // keep on top
   },
   input: { fontSize: 16, minHeight: 24 },
 
   iconBtn: {
     position: 'absolute',
-    top: 8,
+    top: 6,
     width: 36,
     height: 36,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 1,
+    backgroundColor: 'transparent',
   },
 });
+
